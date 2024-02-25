@@ -34,7 +34,7 @@ public class Product {
     @OneToOne
     private Image image;
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderItem> orderItemList;
+//    @OneToMany(mappedBy = "product")
+//    private List<OrderItem> orderItemList;
 
 }
