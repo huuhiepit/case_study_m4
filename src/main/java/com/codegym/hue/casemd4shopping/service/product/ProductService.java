@@ -43,6 +43,9 @@ public class ProductService implements IProductService {
     public ProductRes create(ProductReq productReq) {
         try {
             Product product = new Product();
+            if(productRepository.existsProductByNameContainingIgnoreCase(productReq.name())) {
+                throw new IllegalStateException("Product name already exists.");
+            }
             return getProductRes(productReq, product);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error created product: " + e.getMessage());
@@ -61,10 +64,8 @@ public class ProductService implements IProductService {
     }
 
     private ProductRes getProductRes(ProductReq productReq, Product product) {
-        if(productRepository.existsProductByNameContainingIgnoreCase(productReq.name())) {
-            throw new IllegalStateException("Product name already exists.");
-        }
         product.setName(productReq.name());
+        product.setPrice(productReq.price());
         product.setCategory(
                 categoryRepository.findById(productReq.categoryId())
                         .orElseThrow(() -> new IllegalArgumentException("Cannot find category")));

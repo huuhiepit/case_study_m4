@@ -6,7 +6,7 @@ const loading = document.getElementById('loading');
 const search = document.getElementById('search');
 const formSearch = document.getElementById('formSearch');
 const paging = document.getElementById('paging');
-const LIMIT = 2;
+const LIMIT = 5;
 let page = 0;
 let categories;
 let companies;
@@ -17,7 +17,10 @@ let totalPage = 0;
 form.onsubmit = async (e) => {
     e.preventDefault();
     let data = getDataFromForm(form);
-    console.log("Hello");
+    data = {
+        ...data,
+    }
+
     let result = false;
     if (productSelected.id) {
         result = await myFetch({data, url: '/api/products/' + productSelected.id, method: 'PUT', message: 'Edited'});
@@ -31,22 +34,7 @@ form.onsubmit = async (e) => {
     }
 
 }
-async function save() {
-    e.preventDefault();
-    let data = getDataFromForm(form);
-    console.log("Hello");
-    let result = false;
-    if (productSelected.id) {
-        result = await myFetch({data, url: '/api/products/' + productSelected.id, method: 'PUT', message: 'Edited'});
 
-    } else {
-        result = await myFetch({data, url: '/api/products', method: 'POST', message: 'Created'})
-    }
-    if (result) {
-        await renderTable();
-        $('#staticBackdrop').modal('hide');
-    }
-}
 
 async function getCategoriesSelectOption() {
     const res = await fetch('api/categories');
@@ -74,16 +62,17 @@ function getDataInput() {
             name: 'name',
             value: productSelected.name,
             required: true,
-            pattern: "^[A-Za-z 0-9]{6,20}",
-            message: "Name must have minimum is 6 characters and maximum is 20 characters",
+            pattern: "^[A-Za-z 0-9]{6,50}",
+            message: "Name must have minimum is 6 characters and maximum is 50 characters",
         },
         {
             label: 'Price',
             name: 'price',
             value: productSelected.price,
+            pattern: "^[1-9]\\d{3,}$",
+            message: 'Price greater than 1000',
             required: true,
-            pattern: "^[0-9]+$\n",
-            message: "",
+            type: 'text'
         },
         {
             label: 'Category',
@@ -107,19 +96,19 @@ function getDataInput() {
             label: 'Quantity',
             name: 'quantity',
             value: productSelected.quantity,
+            pattern: "^[1-9]\\d*$",
+            message: 'Quantity greater than 1',
             required: true,
-            pattern: "^[0-9]+$\n",
-            message: "",
+            type: 'text'
+
         },
         {
             label: 'Url Image',
             name: 'urlImage',
             value: productSelected.urlImage,
             required: true,
-            pattern: "",
-            message: "",
+            message: "Please enter url image product",
         },
-
     ];
 }
 
@@ -157,7 +146,7 @@ function renderItemStr(item, index) {
                          </div>               
                     </td>
                     <td>
-                        ${item.price}
+                        ${formatCurrency(item.price)}
                     </td>
                     <td>
                         ${item.categoryName || 'No Category'}

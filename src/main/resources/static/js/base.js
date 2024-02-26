@@ -53,7 +53,6 @@ function renderForm(formBody, inputs) {
     inputs.forEach((input) => {
         formBody.innerHTML += createFieldForm(input);
     })
-
     const inputElements = formBody.querySelectorAll('.input-custom');
 
     // add sự kiện onFocus
@@ -62,7 +61,6 @@ function renderForm(formBody, inputs) {
             onFocus(formBody, i)
         }
     }
-
 }
 
 document.addEventListener('invalid', (function () {
@@ -115,5 +113,13 @@ function activeMenu(){
             menu.classList.add('active');
         }
     })
+}
+function formatCurrency(amount) {
+    if (amount !== null && amount !== undefined) {
+        // Sử dụng replace để thay thế dấu chấm thành dấu phẩy
+        return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace(/\./g, ',');
+    } else {
+        return 'N/A'; // Hoặc giá trị mặc định khác tùy bạn chọn
+    }
 }
 activeMenu();

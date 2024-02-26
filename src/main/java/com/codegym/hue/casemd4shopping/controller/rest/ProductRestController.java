@@ -21,7 +21,7 @@ public class ProductRestController {
     private final IProductService productService;
     @GetMapping
     public ResponseEntity<Page<ProductRes>> index(@RequestParam(defaultValue = "") String search,
-                                                  @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 10, page = 0) Pageable pageable) {
+                                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(productService.findAllBySearch(search, pageable));
     }
     @GetMapping("/{id}")
