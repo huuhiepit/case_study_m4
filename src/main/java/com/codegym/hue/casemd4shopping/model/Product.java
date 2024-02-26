@@ -1,5 +1,7 @@
 package com.codegym.hue.casemd4shopping.model;
 
+import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductDetailRes;
+import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductRes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,18 +25,25 @@ public class Product {
 
     private BigInteger price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Company company;
 
     private Long quantity;
 
-    @OneToOne
-    private Image image;
+    private String urlImage;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<OrderItem> orderItemList;
 
+    public ProductRes toProductRes() {
+        return new ProductRes(this.id, this.name, this.price,
+                this.category.getName(), this.company.getName(),
+                this.quantity, this.urlImage);
+    }
+    public ProductDetailRes toProductDetailRes() {
+        return new ProductDetailRes(id, name, price, category.getId(), category.getName(), company.getId(), company.getName(), quantity, urlImage);
+    }
 }

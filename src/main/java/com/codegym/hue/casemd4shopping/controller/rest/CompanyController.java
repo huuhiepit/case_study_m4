@@ -1,8 +1,7 @@
 package com.codegym.hue.casemd4shopping.controller.rest;
 
-
-import com.codegym.hue.casemd4shopping.model.Category;
-import com.codegym.hue.casemd4shopping.service.impl.ICategoryService;
+import com.codegym.hue.casemd4shopping.model.Company;
+import com.codegym.hue.casemd4shopping.service.impl.ICompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("api/companies")
 @AllArgsConstructor
-public class CategoryRestController {
-    private final ICategoryService categoryService;
+public class CompanyController {
+    private final ICompanyService companyService;
     @GetMapping
-    public ResponseEntity<List<Category>> getAll() {
-        return ResponseEntity.ok(categoryService.getAll());
+    public ResponseEntity<List<Company>> getAll() {
+        return ResponseEntity.ok(companyService.getAll());
     }
 }

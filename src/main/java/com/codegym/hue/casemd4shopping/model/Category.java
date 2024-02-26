@@ -21,6 +21,6 @@ public class Category {
     @Column(columnDefinition = "NVARCHAR(100)")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> productList;
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> productList;
 }

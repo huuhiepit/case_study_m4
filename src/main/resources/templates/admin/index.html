@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>Modern Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+</head>
+<body>
+<input type="checkbox" id="menu-toggle">
+<th:block th:insert="~{admin/layout::navbar}"></th:block>
+<th:block th:insert="~{admin/layout::header}"></th:block>
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="row">
+                        <div id="formBody">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                <div>
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><span class="las la-sort"></span>Name</th>
+                            <th><span class="las la-sort"></span> PRICE</th>
+                            <th><span class="las la-sort"></span> CATEGORY</th>
+                            <th><span class="las la-sort"></span> COMPANY</th>
+                            <th><span class="las la-sort"></span> QUANTITY</th>
+                            <th><span class="las la-sort"></span> ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBody">
+
+                        </tbody>
+                    </table>
+                    <ul class="pagination" id="paging">
+
+                    </ul>
+                </div>
+<div class="d-flex justify-content-center mt-5">
+    <div class="spinner-border" role="status" id="loading">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<th:block th:insert="~{admin/layout::footer}"></th:block>
+<script src="/js/product.js"></script>
+</body>
+</html>
