@@ -1,6 +1,7 @@
 package com.codegym.hue.casemd4shopping.model;
 
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductDetailRes;
+import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductHomeRes;
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductRes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,5 +46,8 @@ public class Product {
     }
     public ProductDetailRes toProductDetailRes() {
         return new ProductDetailRes(id, name, price, category.getId(), category.getName(), company.getId(), company.getName(), quantity, urlImage);
+    }
+    public ProductHomeRes toProductHomeRes() {
+        return new ProductHomeRes(id, urlImage, name, price);
     }
 }

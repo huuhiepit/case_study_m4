@@ -4,6 +4,7 @@ import com.codegym.hue.casemd4shopping.model.Product;
 import com.codegym.hue.casemd4shopping.service.impl.IProductService;
 import com.codegym.hue.casemd4shopping.service.product.dto.request.ProductReq;
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductDetailRes;
+import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductHomeRes;
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductRes;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,11 @@ public class ProductRestController {
     public ResponseEntity<Page<ProductRes>> index(@RequestParam(defaultValue = "") String search,
                                                   @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(productService.findAllBySearch(search, pageable));
+    }
+    @GetMapping("/home")
+    public ResponseEntity<Page<ProductHomeRes>> indexHome(@RequestParam(defaultValue = "") String search,
+                                                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(productService.findAllByWithHome(search, pageable));
     }
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailRes> getDetailProduct(@PathVariable Long id) {

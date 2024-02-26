@@ -8,6 +8,7 @@ import com.codegym.hue.casemd4shopping.repository.IProductRepository;
 import com.codegym.hue.casemd4shopping.service.impl.IProductService;
 import com.codegym.hue.casemd4shopping.service.product.dto.request.ProductReq;
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductDetailRes;
+import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductHomeRes;
 import com.codegym.hue.casemd4shopping.service.product.dto.response.ProductRes;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,12 @@ public class ProductService implements IProductService {
     public Page<ProductRes> findAllByCategoryOrCompanyType(Long categoryId, Long companyId, Pageable pageable) {
         return productRepository.findAllByCategoryIdOrCompanyId(categoryId, companyId, pageable)
                 .map(Product::toProductRes);
+    }
+
+    @Override
+    public Page<ProductHomeRes> findAllByWithHome(String search, Pageable pageable) {
+        return productRepository.findAllByNameContainingIgnoreCaseOrCategoryNameOrCompanyName(search, search, search, pageable)
+                .map(Product::toProductHomeRes);
     }
 
     @Override
